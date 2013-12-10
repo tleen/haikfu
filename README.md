@@ -1,4 +1,4 @@
 haikfu
 ======
 
-Haiku generator
+Haiku generating node module

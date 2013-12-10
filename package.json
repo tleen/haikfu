@@ -1,0 +1,26 @@
+{
+  "name" : "haikfu",
+  "description" : "Haiku generator",
+  "main" : "./src/haikfu",
+  "author" : "Thomas Leen",
+  "version" : "0.0.1",
+  "main" : "src/haikfu.js",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/tleen/haikfu.git"
+  },
+  "bugs" : "https://github.com/tleen/haikfu/issues",
+  "licenses" : [ {
+    "type" : "MIT",
+    "url" : "https://github.com/tleen/haikfu/blob/master/LICENSE"
+  } ],
+  "dependencies" : {
+    "string" : "1.7.0",
+    "syllablistic" : "0.0.2",
+    "underscore" : "1.5.2"
+  },
+  "devDependencies" : {
+    "grunt" : "0.4.2",
+    "grunt-contrib-jshint" : "0.7.2"
+  }
+}
