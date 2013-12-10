@@ -1,3 +1,5 @@
+'use strict';
+
 var S = require('string'),
 syllablistic = require('syllablistic'),
 _ = require('underscore');
@@ -9,11 +11,11 @@ function text(input){
 
   if(S(input).isEmpty()) return '';
 
-  var text = S(input).collapseWhitespace().s.trim();
+  var s = S(input).collapseWhitespace().s.trim();
 
 
   // not a great regex, could use some work
-  var components = _.chain(text.split(/[\.\,\;\r\n]/))
+  var components = _.chain(s.split(/[\.\,\;\r\n]/))
     .map(function(s){ return S(s).stripPunctuation().s.trim(); })
     .groupBy(function(s){ return syllablistic.text(s); })
     .value();
@@ -32,15 +34,8 @@ function text(input){
   if(fives.length === 0) haiku.push(haiku[0]);
   else haiku.push(fives.pop());
 
-  return haiku.join('\n');
-  
-/*
-.filter(function(e){
-      return ((e.count === 5) || (e.count === 7));
-    })
-*/
-  
-};
+  return haiku.join('\n');   
+}
 
 
 module.exports = {
