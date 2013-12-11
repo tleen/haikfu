@@ -9,13 +9,10 @@ _ = require('underscore');
 // if minumum requirements are not met by input, return empty string
 function text(input){
 
-  if(S(input).isEmpty()) return '';
-
-  var s = S(input).collapseWhitespace().s.trim();
-
+  if(S(input).isEmpty()) throw new Error('Empty input string');
 
   // not a great regex, could use some work
-  var components = _.chain(s.split(/[\.\,\;\r\n]/))
+  var components = _.chain(input.split(/[\.\,\;\r\n]/g))
     .map(function(s){ return S(s).stripPunctuation().s.trim(); })
     .groupBy(function(s){ return syllablistic.text(s); })
     .value();
@@ -23,7 +20,6 @@ function text(input){
   _.each([5,7], function(i){
     if(!(i in components)) throw new Error('No ' + i + ' syllable elements available');
   });
-
 
   var fives = _.shuffle(components[5]);
   var sevens = _.shuffle(components[7]);

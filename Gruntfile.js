@@ -3,16 +3,33 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     jshint: {
-      files: ['Gruntfile.js', 'src/*.js'],
+      files: ['Gruntfile.js', 'src/*.js', 'test/*.js'],
       options: {
         "expr" : true,
         "node" : true,
-        "smarttabs" : true      
+        "smarttabs" : true,
+	"predef" : [ // mocha test defs
+          'after',
+          'before',
+          'describe',
+          'it']
+      }
+    },
+    cafemocha: {
+      testAll : {
+        src: 'test/*.js',
+        options: {
+          ui : 'bdd',
+          require : [
+            'should'
+          ]
+        }
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-cafe-mocha');
 
-  grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('default', ['jshint', 'cafemocha']);
 };

@@ -21,6 +21,15 @@
   },
   "devDependencies" : {
     "grunt" : "0.4.2",
-    "grunt-contrib-jshint" : "0.7.2"
-  }
+    "grunt-cafe-mocha" : "0.1.10",
+    "grunt-contrib-jshint" : "0.7.2",
+    "should" : "2.1.1"
+  },
+  "scripts" : {
+    "test" : "node_modules/grunt-cafe-mocha/node_modules/mocha/bin/mocha test/*.js"
+  }, 
+  "keywords" : [
+    "haiku",
+    "text"
+  ]
 }
