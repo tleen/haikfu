@@ -1,7 +1,7 @@
 {
   "name" : "haikfu",
   "description" : "Haiku generator",
-  "main" : "./src/haikfu",
+  "main" : "./index",
   "author" : "Thomas Leen",
   "version" : "0.0.2",
   "repository" : {
