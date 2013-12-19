@@ -12,10 +12,10 @@ Haiku generating node module
 
 var haikfu = require('haikfu');
 
-// the .text() function accepts text input and tries to create a haiku from the contents
+// the module accepts text input and tries to create a haiku from the contents on each invocation
 // errors will be thrown if input is insufficient for the task 
-var haiku = haikfu.text('this line has five sounds; this line should have seven sounds. this line is five too.');
-console.log(haiku);
+var haikuGenerator = haikfu('this line has five sounds; this line should have seven sounds. this line is five too.');
+console.log(haikuGenerator());
 
 // this line is five too
 // this line should have seven sounds
