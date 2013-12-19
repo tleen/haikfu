@@ -12,15 +12,16 @@ var samples = [
 ];
 
 describe('Library loads', function(){
-  it('Should have a .text function', function(){
-    haikfu.should.have.property('text');
+  it('Should return text from invocation', function(){
+    var haikfuSample = haikfu(samples[0]);
+    haikfuSample().should.be.type('string');
   });
 });
 
-
 describe('.text function works on samples', function(){
   samples.forEach(function(sample){
-    var result = haikfu.text(sample).split('\n');
+    var haikfuSample = haikfu(sample);
+    var result = haikfuSample().split('\n');
 
     it('Should have sample size of 3', function(){
       result.should.have.length(3);
@@ -37,26 +38,26 @@ describe('.text function works on samples', function(){
 describe('bad input throws errors', function(){
   it('.text function should throw error on empty input', function(){
     (function(){
-      haikfu.text('');
+      haikfu('');
     }).should.throwError(/^Empty.*/);
   });
 
   it('.text function should throw error on insufficient 5 syllable input', function(){
     (function(){
-      haikfu.text('this line has four; this line should have seven sounds. this line bad too');
+      haikfu('this line has four; this line should have seven sounds. this line bad too');
     }).should.throwError(/^No 5.*/);
   });
 
   it('.text function should throw error on insufficient 7 syllable input', function(){
     (function(){
-      haikfu.text('this line has five sounds; this line should have eight or nine sounds. this line is five too');
+      haikfu('this line has five sounds; this line should have eight or nine sounds. this line is five too');
     }).should.throwError(/^No 7.*/);
   });
 
 });
 
 describe('.text function handles low variety input', function(){
-  var result = haikfu.text('this line has five sounds. this line should have seven sounds. this line is four').split('\n');
+  var result = haikfu('this line has five sounds. this line should have seven sounds. this line is four')().split('\n');
 
   it('should have three lines', function(){
     result.should.have.length(3);
@@ -68,4 +69,3 @@ describe('.text function handles low variety input', function(){
     result[2].should.equal('this line has five sounds');
   });
 });
-

@@ -7,35 +7,39 @@ _ = require('underscore');
 
 // split text and turn into haiku, three lines of 5-7-5
 // if minumum requirements are not met by input, return empty string
-function text(input){
 
-  if(S(input).isEmpty()) throw new Error('Empty input string');
+module.exports = function(source){
+
+  if(S(source).isEmpty()) throw new Error('Empty input string');
 
   // not a great regex, could use some work
-  var components = _.chain(input.split(/[\.\,\;\r\n]/g))
-    .map(function(s){ return S(s).stripPunctuation().s.trim(); })
-    .groupBy(function(s){ return syllablistic.text(s); })
+  var components = _.chain(source.split(/[\.\,\;\r\n]/g))
+    .map(function(s){
+      return S(s).trim().s;
+    })
+    .map(function(s){ 
+      return {
+	text : s,
+	count : syllablistic.text(s)
+      }
+    })
+    .groupBy(function(s){ return s.count })
     .value();
 
   _.each([5,7], function(i){
     if(!(i in components)) throw new Error('No ' + i + ' syllable elements available');
   });
 
-  var fives = _.shuffle(components[5]);
-  var sevens = _.shuffle(components[7]);
+  var fives = _.chain(components[5]).shuffle().pluck('text').value();
+  var sevens = _.chain(components[7]).shuffle().pluck('text').value();
 
-  var haiku = [];
-  haiku.push(fives.pop());
-  haiku.push(sevens.pop());
-  if(fives.length === 0) haiku.push(haiku[0]);
-  else haiku.push(fives.pop());
-
-  return haiku.join('\n');   
+  return function(){
+    var haiku = [];
+    haiku.push(_.sample(fives));
+    haiku.push(_.sample(sevens));
+    haiku.push(_.sample(fives));
+    return haiku.join('\n');
+  }
 }
-
-
-module.exports = {
-  text : text
-};
 
 
